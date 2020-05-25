@@ -62,10 +62,6 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
 
 
 
-        bookEntries.setAdapter(adapter);
-        Log.i(LOG_TAG, "Adaper set on ListView:: " + bookEntries);
-
-        bookEntries.setEmptyView(emptyResult);
         query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
@@ -76,29 +72,34 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
                     // TODO: Find out how to make search button accept new search(es) in stead of calling onFinished() recursively.
                     loaderManager.initLoader(LOADER_ID, null, ParamsActivity.this);
                     Log.i(LOG_TAG, "LoaderManager initialised called::");
+
+                    bookEntries.setAdapter(adapter);
+                    Log.i(LOG_TAG, "Adaper set on ListView:: " + bookEntries);
+                    bookEntries.setEmptyView(emptyResult);
+
+                    bookEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick (AdapterView<?> adapterView, View view, int position, long l) {
+                            Log.i(LOG_TAG, "bookEntries onItemClickListener");
+                            // Find the current earthquake that was clicked on
+                            Book currentBook = adapter.getItem(position);
+
+                            // Convert the String URL into a URI object (to pass into the Intent constructor)
+                            Uri bookUri = Uri.parse(currentBook.getPage());
+
+                            // Create a new intent to view the earthquake URI
+                            Intent websiteIntent = new Intent(Intent.ACTION_VIEW, bookUri);
+
+                            // Send the intent to launch a new activity
+                            startActivity(websiteIntent);
+                        }
+                    });
+
                 } else if (text.getText().length() < 1){
                     text.setHint("Please enter book title/details");
                     text.setHintTextColor(Color.RED);
                     Log.e(LOG_TAG, "Title and/or details might not have been entered. Contingency plan executed.");
                 }
-            }
-        });
-
-        bookEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick (AdapterView<?> adapterView, View view, int position, long l) {
-                Log.i(LOG_TAG, "bookEntries onItemClickListener");
-                // Find the current earthquake that was clicked on
-                Book currentBook = adapter.getItem(position);
-
-                // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri bookUri = Uri.parse(currentBook.getPage());
-
-                // Create a new intent to view the earthquake URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, bookUri);
-
-                // Send the intent to launch a new activity
-                startActivity(websiteIntent);
             }
         });
 

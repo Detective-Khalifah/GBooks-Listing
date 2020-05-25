@@ -42,7 +42,7 @@ public class Adapt extends ArrayAdapter<Book> {
         View listView = convertView;
 
         if (listView == null){
-            listView = LayoutInflater.from(getContext()).inflate(R.layout.volume, parent, false);
+            listView = LayoutInflater.from(getContext()).inflate(R.layout.hits_page, parent, false);
         }
 
         // Find the earthquake at the given position in the list of earthquakes

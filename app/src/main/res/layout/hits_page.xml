@@ -10,7 +10,8 @@
         android:background="@android:color/holo_orange_light"
         android:divider="?attr/dividerHorizontal"
         android:dividerHeight="4dp"
-        android:orientation="vertical" /><!--        android:visibility="visible" />-->
+        android:visibility="gone"
+        android:orientation="vertical" /><!--         />-->
 
     <TextView
         android:id="@+id/matches_nill"
