@@ -1,22 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- Layout for a list of books -->
     <ListView
-        android:id="@+id/book_entries"
+        android:id="@+id/catalog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/holo_orange_light"
         android:divider="?attr/dividerHorizontal"
         android:dividerHeight="4dp"
-        android:visibility="gone"
-        android:orientation="vertical" /><!--         />-->
+        android:orientation="vertical" />
 
     <TextView
         android:id="@+id/matches_nill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/matches0" />
+        android:layout_centerInParent="true" /> <!--android:text="@string/matches0"   android:visibility="gone"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tool:text="A Study in Scarlet">
+            </TextView>
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tool:text="Sir Arthur Conan Doyle" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tool:text="18__" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

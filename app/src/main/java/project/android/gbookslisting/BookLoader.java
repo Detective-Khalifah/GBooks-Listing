@@ -13,7 +13,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     private String query;
 
-    public BookLoader (Context context, String theQuery) {
+    protected BookLoader (Context context, String theQuery) {
         super(context);
         this.query = theQuery;
     }
@@ -34,7 +34,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
             return null;
         } else {
             List<Book> result = Search.lookUpVolumes(query);
-            Log.i(BookLoader.class.getName(), "result List data: " + result);
+//            Log.i(BookLoader.class.getName(), "result List data: " + result);
             return result;
         }
     }

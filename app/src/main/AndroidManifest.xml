@@ -22,6 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ResultsActivity"
+            android:label="@string/hits_page"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".ParamsActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ParamsActivity" />
+        </activity>
     </application>
 
 </manifest>

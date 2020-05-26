@@ -23,8 +23,7 @@ public class Search {
     private static final String API_KEY = "key=AIzaSyCFHqZ7MM6vAkZ916SAjc_AP6DrE_5n-sU";
 
     /**
-     * @param requestURL
-     * @return
+     * @param requestURL an initial, unready search query
      */
     protected static List<Book> lookUpVolumes (String requestURL) {
         Log.i(Search.class.getName(), "lookUpVolumes in action.");
@@ -48,14 +47,13 @@ public class Search {
 
         try {
             JSONResponse = makeHTTPRequest(url);
-            Log.i(Search.class.getName(), "The JSONResponse is: " + JSONResponse);
         } catch (IOException e) {
 
         }
 
-        // Generate a list of earthquakes from fetched GeoJSON
+        // Generate a list of books from fetched GeoJSON
         List<Book> searchResult = extractJSONData(JSONResponse);
-        Log.i(Search.class.getName(), "SearchResult List is made of: " + searchResult);
+//        Log.i(Search.class.getName(), "SearchResult List is made of: " + searchResult);
         return searchResult;
     }
 
@@ -147,7 +145,7 @@ public class Search {
         if (TextUtils.isEmpty(booksJSON))
             return null;
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+        // Create an empty ArrayList that we can start adding books to
         List<Book> books = new ArrayList<>();
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
@@ -159,13 +157,13 @@ public class Search {
             // TODO: Make app capable of accepting hundreds of results;
             //  has to be later on, since I can't let user wait eternally for results and haven't figured out how to get more than 10 items.
             //  For now, stick to avoiding crashes when some detail(s)'(s)/(are)  missing.
-            // build up a list of Earthquake objects with the corresponding data.
+            // build up a list of Book objects with the corresponding data.
 
             // Create a JSON object from the SAMPLE_JSON_RESPONSE string
             JSONObject rootJSONObj = new JSONObject(booksJSON);
 
             // Extract the JSONArray associated with the key called "items"
-            // which represents a list of features (or earthquakes).
+            // which represents a list of features (or books).
             JSONArray bookArray = rootJSONObj.getJSONArray("items");
 
             // For each book in the bookArray, create an {@link book object
@@ -174,7 +172,8 @@ public class Search {
 //                Log.i(Search.class.getName(), "currentBookObj:: " + currentBookObj);
 
                 JSONObject currentVolInfo = currentBookObj.getJSONObject("volumeInfo");
-                Log.i(Search.class.getName(), "currentVolInfo:: " + currentVolInfo);
+//                Log.i(Search.class.getName(), "currentVolInfo:: " + currentVolInfo);
+                // TODO: Get thumbnail from above JSONObj
 
                 /* Extract title*/
                 String title = currentVolInfo.getString("title");
@@ -208,34 +207,32 @@ public class Search {
                     } */
 
 //            writ = writ.replaceAll(quote, "").replace((String.valueOf(writ.charAt(0))), "").replace(String.valueOf(writ.charAt(writ.length() - 1)), "");
-            Log.i(Search.class.getName(), "authorArr:: " + writ);
+                Log.i(Search.class.getName(), "authorArr:: " + writ);
 
-            /* Extract year*/
-            String year = currentVolInfo.getString("publishedDate").substring(0, 4);
-            Log.i(Search.class.getName(), "year:: " + year);
+                /* Extract year*/
+                String year = currentVolInfo.getString("publishedDate").substring(0, 4);
+                Log.i(Search.class.getName(), "year:: " + year);
 
-            /* Extract volume/book ID - a unique identifier for the current book, which can be used to uniquely open book info online */
-            String web_page = currentBookObj.getString("selfLink");
-            Log.i(Search.class.getName(), "web_page:: " + web_page);
+                /* Extract volume/book ID - a unique identifier for the current book, which can be used to uniquely open book info online */
+//                String web_page = currentBookObj.getString("selfLink");
+                String web_page = currentVolInfo.getString("previewLink");
+                Log.i(Search.class.getName(), "web_page:: " + web_page);
 
-            Book book = new Book(title, writ, year, web_page);
-            Log.i(Search.class.getName(), "book:: " + book);
-            books.add(book);
+                Book book = new Book(title, writ, year, web_page);
+                Log.i(Search.class.getName(), "book:: " + book);
+                books.add(book);
+            }
+
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e(Search.class.getName(), "Problem parsing the JSON results_page", e);
         }
 
-    } catch(
-    JSONException e)
-
-    {
-        // If an error is thrown when executing any of the above statements in the "try" block,
-        // catch the exception here, so the app doesn't crash. Print a log message
-        // with the message from the exception.
-        Log.e(Search.class.getName(), "Problem parsing the JSON results_page", e);
-    }
-
-    // Return the list (polymorphed arraylist) of books
+        // Return the list (polymorphed arraylist) of books
         return books;
-}
+    }
 }
 
 // Check if character at specific position is whitespace and replace it with '+'/"+"

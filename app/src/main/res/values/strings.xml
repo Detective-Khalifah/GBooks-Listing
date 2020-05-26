@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">GBooks Listing</string>
     <string name="search">Enter book title</string>
+    <string name="search_button">Search</string>
     <string name="search_param">Include book details below in your search</string>
     <string name="matches0">No match(es) found.</string>
     <string name="matches1">Match(es) found.</string>
+    <string name="hits_page">Search Results</string>
     <string-array name="maxres">
         <item>1</item>
         <item>2</item>
