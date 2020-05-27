@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ResultsActivity extends AppCompatActivity implements Serializable {
@@ -28,12 +27,16 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hits_page);
 
-        Intent i = getIntent();
-        ArrayList<Book> books = (ArrayList<Book>) i.getSerializableExtra("data");
-        Log.i(LOG_TAG, "books::" + books);
+        List<Book> books = new ArrayList<Book>();
+        books = ParamsActivity.books;
+        Log.i(LOG_TAG, "books " + books + " received.");
+
+//        Intent i = getIntent();
+//        ArrayList<Book> books = (ArrayList<Book>) i.getSerializableExtra("data");
+//        Log.i(LOG_TAG, "books::" + books);
 
         emptyResult = findViewById(R.id.matches_nill);
-        Log.i(LOG_TAG, "emptyResult TextView:: " + emptyResult);
+//        Log.i(LOG_TAG, "emptyResult TextView:: " + emptyResult);
         emptyResult.setText(R.string.matches0);
 
         if (!books.isEmpty()) {
@@ -48,7 +51,7 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
             Log.i(LOG_TAG, "bookEntries ListView 1A::: " + bookEntries);
 
             bookEntries.setAdapter(adapter);
-            Log.i(LOG_TAG, "Adaper set on ListView:: " + bookEntries);
+            Log.i(LOG_TAG, "Adapter set on ListView:: " + bookEntries);
 
             bookEntries.setEmptyView(emptyResult);
 
@@ -56,13 +59,13 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
                 @Override
                 public void onItemClick (AdapterView<?> adapterView, View view, int position, long l) {
                     Log.i(LOG_TAG, "bookEntries onItemClickListener");
-                    // Find the current earthquake that was clicked on
+                    // Find the current book that was clicked on
                     Book currentBook = adapter.getItem(position);
 
                     // Convert the String URL into a URI object (to pass into the Intent constructor)
                     Uri bookUri = Uri.parse(currentBook.getPage());
 
-                    // Create a new intent to view the earthquake URI
+                    // Create a new intent to view the book URI
                     Intent websiteIntent = new Intent(Intent.ACTION_VIEW, bookUri);
 
                     // Send the intent to launch a new activity
@@ -74,7 +77,7 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
 //        Log.i(LOG_TAG, "adapter cleared.");
 
             adapter.addAll(books);
-            Log.i(LOG_TAG, "adapter.addAll(data) executed");
+            Log.i(LOG_TAG, "adapter.addAll executed");
         } else {
             emptyResult.setVisibility(View.VISIBLE);
             emptyResult.setText(R.string.matches0);

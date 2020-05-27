@@ -1,5 +1,8 @@
 package project.android.gbookslisting;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -11,31 +14,33 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Search {
 
     private static final String GET = "https://www.googleapis.com/books/v1/volumes?q=";
-    private static final String API_KEY = "key=AIzaSyCFHqZ7MM6vAkZ916SAjc_AP6DrE_5n-sU";
+    private static final String API_KEY = /*"key=*/"AIzaSyCFHqZ7MM6vAkZ916SAjc_AP6DrE_5n-sU";
 
     /**
      * @param requestURL an initial, unready search query
      */
     protected static List<Book> lookUpVolumes (String requestURL) {
-        Log.i(Search.class.getName(), "lookUpVolumes in action.");
+//        Log.i(Search.class.getName(), "lookUpVolumes in action.");
 
-        // REST API prefix
+        // RESTful API prefix
         StringBuilder generateQuery = new StringBuilder(GET);
 
         // Check if character at specific position is whitespace and replace it with '+'/"+"
         generateQuery.append(requestURL.replaceAll("[\\s|\\u00A0]+", "+")) /* limit number of items/results to return here .append("&limit=10") */;
 
         // Append API key to query
-        generateQuery.append("&").append(API_KEY);
+//        generateQuery.append("&").append(API_KEY);
 
         Log.i(Search.class.getName(), "Generated Query: " + generateQuery);
 
@@ -62,6 +67,7 @@ public class Search {
      * @return
      */
     private static URL createURL (String stringURL) {
+        Log.i(Search.class.getName(), "createURL");
         URL url = null;
         try {
             url = new URL(stringURL);
@@ -92,15 +98,16 @@ public class Search {
             urlConn.setReadTimeout(36000 /* milliseconds */);
             urlConn.setConnectTimeout(600 /* milliseconds */);
             urlConn.setRequestMethod("GET");
+            urlConn.setRequestProperty("key", API_KEY);
             urlConn.connect();
 
             // If the request was successful (response code 200), then read the input stream and parse the response.
             if (urlConn.getResponseCode() == 200) {
-                Log.i(Search.class.getName(), "Response code 200");
+                Log.i(Search.class.getName(), "from makeHTTPRequest: Response code 200");
                 inputStream = urlConn.getInputStream();
-                Log.i(Search.class.getName(), "inputStream:: " + inputStream);
+//                Log.i(Search.class.getName(), "inputStream:: " + inputStream);
                 JSONResponse = readFromStream(inputStream);
-                Log.i(Search.class.getName(), "JSONResponse:: " + JSONResponse);
+//                Log.i(Search.class.getName(), "JSONResponse:: " + JSONResponse);
             } else {
                 // Toast.makeText(this, "Please enable network connection", Toast.LENGTH_LONG).show();
             }
@@ -184,7 +191,6 @@ public class Search {
 //                String[] authors = {String.valueOf(currentVolInfo.getJSONArray("authors"))};
 
                 StringBuilder maybeMore = new StringBuilder();
-                String quote = "\"";
                 String writ;
                 int k = 0;
                 while (k < authorsJSON.length()) {
@@ -202,11 +208,7 @@ public class Search {
                 } else if (authorsJSON.length() < 1) {
                     writ = "Unidentified.";
                 }
-                /* else if (authorsJSON.length() == 1) {
-                        authors = authorsJSON.optString(1);
-                    } */
 
-//            writ = writ.replaceAll(quote, "").replace((String.valueOf(writ.charAt(0))), "").replace(String.valueOf(writ.charAt(writ.length() - 1)), "");
                 Log.i(Search.class.getName(), "authorArr:: " + writ);
 
                 /* Extract year*/
@@ -218,9 +220,9 @@ public class Search {
                 String web_page = currentVolInfo.getString("previewLink");
                 Log.i(Search.class.getName(), "web_page:: " + web_page);
 
-                Book book = new Book(title, writ, year, web_page);
-                Log.i(Search.class.getName(), "book:: " + book);
-                books.add(book);
+
+//                Log.i(Search.class.getName(), "book:: " + book);
+                books.add(new Book(title, writ, year, web_page));
             }
 
         } catch (JSONException e) {
@@ -230,7 +232,7 @@ public class Search {
             Log.e(Search.class.getName(), "Problem parsing the JSON results_page", e);
         }
 
-        // Return the list (polymorphed arraylist) of books
+        // Return the list (polymorphed ArrayList) of books
         return books;
     }
 }
@@ -266,3 +268,6 @@ public class Search {
 //                } else {
 //                    writ = authors[0];
 //                }
+
+//                String quote = "\"";
+//            writ = writ.replaceAll(quote, "").replace((String.valueOf(writ.charAt(0))), "").replace(String.valueOf(writ.charAt(writ.length() - 1)), "");

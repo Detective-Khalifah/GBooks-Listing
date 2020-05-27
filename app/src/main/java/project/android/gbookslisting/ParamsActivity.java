@@ -4,31 +4,22 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-//import android.support.v4.content.AsyncTaskLoader;
-//import android.support.v7.app.AppCompatActivity;
-import android.widget.AdapterView;
-
-import java.util.Arrays;
-
-import android.widget.ListAdapter;
 
 import static project.android.gbookslisting.ResultsActivity.adapter;
-import static project.android.gbookslisting.ResultsActivity.emptyResult;
+
+//import android.support.v4.content.AsyncTaskLoader;
+//import android.support.v7.app.AppCompatActivity;
 
 public class ParamsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>>, Serializable {
 
@@ -37,6 +28,7 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
     EditText text;
     String query;
     private LoaderManager loaderManager = getLoaderManager();
+    public static List<Book> books = new ArrayList<Book>();
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -88,9 +80,12 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         if (data != null && !data.isEmpty()) {
             Log.i(LOG_TAG, "Data not empty in onPostExecute's check");
 
-            data = new ArrayList<Book>();
-            Intent i = new Intent(ParamsActivity.this, ResultsActivity.class);
-            i.putExtra("data", (Serializable) data);
+//            data = new ArrayList<Book>();
+            books = data;
+            Log.d(LOG_TAG, String.valueOf(data.size()));
+
+            Intent i = new Intent(getApplicationContext(), ResultsActivity.class);
+//            i.putExtra("data", (Serializable) data);
             startActivity(i);
         }
     }

@@ -1,5 +1,6 @@
 package project.android.gbookslisting;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class Book {
@@ -17,10 +18,6 @@ public class Book {
         this.page = thePage;
     }
 
-
-    public String getBook_title () {
-        return book_title;
-    }
 
     public Book setBook_title (String book_title) {
         this.book_title = book_title;
@@ -42,15 +39,17 @@ public class Book {
         return this;
     }
 
-    public String getAuthor () {
+    protected String getAuthor () {
         return author;
     }
 
-    public String getPublishing_year () {
-        return publishing_year;
+    protected String getPublishing_year () { return publishing_year; }
+
+    protected String getPage () {
+        return page;
     }
 
-    public String getPage () {
-        return page;
+    protected String getBook_title () {
+        return book_title;
     }
 }
