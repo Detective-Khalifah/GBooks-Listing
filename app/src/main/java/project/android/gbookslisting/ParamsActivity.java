@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -79,15 +80,19 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
             Log.i(LOG_TAG, "Data not empty in onPostExecute's check");
 
             // WORKED
-            books = new ArrayList<Book>();
-            books = data;
-            Log.i(LOG_TAG, String.valueOf(data.size()));
-
-            Intent i = new Intent(getApplicationContext(), ResultsActivity.class);
-            startActivity(i);
+//            books = new ArrayList<Book>();
+//            books = data;
+//            Log.i(LOG_TAG, String.valueOf(data.size()));
 
             //not
-//            i.putExtra("data", (Serializable) data);
+            books = new ArrayList<Book>();
+            books = data;
+            Intent i = new Intent(getApplicationContext(), ResultsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>) books);
+            i.putExtras(bundle);
+            startActivity(i);
+
 
         }
     }

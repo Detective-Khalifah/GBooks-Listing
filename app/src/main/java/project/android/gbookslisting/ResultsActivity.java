@@ -21,20 +21,24 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
     static TextView emptyResult;
     ListView bookEntries;
     String LOG_TAG = ResultsActivity.class.getName();
+    List<Book> books = new ArrayList<Book>();
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hits_page);
 
+//        NOT
+        Bundle bundle = getIntent().getExtras();
+        books = bundle.getParcelableArrayList("data");
 //        Intent i = new Intent();
 //        List<Book> books = new ArrayList<Book>();
 //        books = (ArrayList<Book>) i.getSerializableExtra("data");
 
         // WORKED
-        List<Book> books = new ArrayList<Book>();
-        books = ParamsActivity.books;
-        Log.i(LOG_TAG, "books " + books + " received.");
+//        List<Book> books = new ArrayList<Book>();
+//        books = ParamsActivity.books;
+//        Log.i(LOG_TAG, "books " + books + " received.");
 
 //        Intent i = getIntent();
 //        ArrayList<Book> books = (ArrayList<Book>) i.getSerializableExtra("data");

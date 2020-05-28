@@ -8,10 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,7 +30,7 @@ public class Adapt extends ArrayAdapter<Book> {
      */
     public Adapt (Context context, List<Book> books) {
         super(context, 0, books);
-        books = b;
+        b = (ArrayList<Book>)books;
     }
 
     /**

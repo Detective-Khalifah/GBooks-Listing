@@ -3,21 +3,39 @@ package project.android.gbookslisting;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class Book implements Parcelable {
 
     private String book_title;
     private String author;
     private String publishing_year;
     private String page;
+    // for Parcel
+    Book book; ArrayList<Book> bArr;
 
 
-    public Book (String theTitle, String theAuthor, String theYear, String thePage) {
+    public Book (String theTitle, String theAuthor, String theYear, String thePage /* More params for Parcel(able)*/) {
         this.book_title = theTitle;
         this.author = theAuthor;
         this.publishing_year = theYear;
         this.page = thePage;
     }
 
+    public Book(Parcel in) {
+        this.book_title = in.readString();
+        this.author = in.readString();
+        this.publishing_year = in.readString();
+        this.page = in.readString();
+      /**
+        // readParcelable for Class Loader
+        this.book = in.readParcelable(Book.class.getClassLoader());
+
+        // read list by using Book.CREATOR
+        this.bArr = new ArrayList<Book>();
+        in.readTypedList(bArr, Book.CREATOR);
+       */
+    }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
         @Override
@@ -65,24 +83,20 @@ public class Book implements Parcelable {
         return book_title;
     }
 
-    protected Book (Parcel in) {
-        book_title = in.readString();
-        author = in.readString();
-        publishing_year = in.readString();
-        page = in.readString();
-    }
-
     @Override
     public int describeContents () {
         return 0;
     }
 
     @Override
-    public void writeToParcel (Parcel parcel, int i) {
+    public void writeToParcel (Parcel parcel, int flags) {
         parcel.writeString(book_title);
         parcel.writeString(author);
         parcel.writeString(publishing_year);
         parcel.writeString(page);
+        /**
+        parcel.writeParcelable(book, flags);
+        parcel.writeTypedList(bArr); */
     }
 
 }
