@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/library"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="project.android.gbookslisting.ParamsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,10 +15,9 @@
 
         <EditText
             android:id="@+id/deets_field"
+            android:background="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:hint="@string/search"
             android:inputType="textMultiLine" />
@@ -41,5 +42,4 @@
         android:layout_marginTop="8dp"
         android:text="@string/search_param">
     </TextView>
-    <!--    tool:context="project.android.gbookslisting.ParamsActivity"-->
 </LinearLayout>

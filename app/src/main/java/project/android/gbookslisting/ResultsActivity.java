@@ -27,6 +27,11 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hits_page);
 
+//        Intent i = new Intent();
+//        List<Book> books = new ArrayList<Book>();
+//        books = (ArrayList<Book>) i.getSerializableExtra("data");
+
+        // WORKED
         List<Book> books = new ArrayList<Book>();
         books = ParamsActivity.books;
         Log.i(LOG_TAG, "books " + books + " received.");

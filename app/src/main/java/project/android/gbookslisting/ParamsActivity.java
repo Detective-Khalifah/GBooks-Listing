@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +20,14 @@ import static project.android.gbookslisting.ResultsActivity.adapter;
 //import android.support.v4.content.AsyncTaskLoader;
 //import android.support.v7.app.AppCompatActivity;
 
-public class ParamsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>>, Serializable {
+public class ParamsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
 
     private static final int LOADER_ID = 0;
     private static String LOG_TAG = ParamsActivity.class.getName();
     EditText text;
     String query;
     private LoaderManager loaderManager = getLoaderManager();
-    public static List<Book> books = new ArrayList<Book>();
+    public static List<Book> books /* = new ArrayList<Book>()*/;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -39,7 +38,6 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         // TODO: Fix theming; resize textviews for diff. volume info, move TextViews, restructure layout!
         // TODO: Add parameter boxes as imagined and take results ListView to a diff. page/layout;
         //  consider managing it on same screen - like by hiding parameters after clicking search and showing again if EditText is in scope
-
 
         Button query = findViewById(R.id.search_button);
         text = findViewById(R.id.deets_field);
@@ -53,7 +51,7 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
                     //TODO: Run a network connectivity test here and set color of button to red or green, depending on status; also set it to orange when searching.
                     // TODO: Consider taking out keyboard after search is clicked.
                     // TODO: Find out how to make search button accept new search(es) in stead of calling onFinished() recursively.
-                    loaderManager.initLoader(LOADER_ID, null, ParamsActivity.this);
+                    loaderManager.restartLoader(LOADER_ID, null, ParamsActivity.this);
                     Log.i(LOG_TAG, "LoaderManager initialised called::");
                 } else if (text.getText().length() < 1) {
                     text.setHint("Please enter book title/details");
@@ -80,13 +78,17 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         if (data != null && !data.isEmpty()) {
             Log.i(LOG_TAG, "Data not empty in onPostExecute's check");
 
-//            data = new ArrayList<Book>();
+            // WORKED
+            books = new ArrayList<Book>();
             books = data;
-            Log.d(LOG_TAG, String.valueOf(data.size()));
+            Log.i(LOG_TAG, String.valueOf(data.size()));
 
             Intent i = new Intent(getApplicationContext(), ResultsActivity.class);
-//            i.putExtra("data", (Serializable) data);
             startActivity(i);
+
+            //not
+//            i.putExtra("data", (Serializable) data);
+
         }
     }
 

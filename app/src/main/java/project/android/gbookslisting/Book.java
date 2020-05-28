@@ -1,9 +1,9 @@
 package project.android.gbookslisting;
 
-import java.io.Serializable;
-import java.util.Date;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Book {
+public class Book implements Parcelable {
 
     private String book_title;
     private String author;
@@ -18,6 +18,18 @@ public class Book {
         this.page = thePage;
     }
 
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel (Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray (int size) {
+            return new Book[size];
+        }
+    };
 
     public Book setBook_title (String book_title) {
         this.book_title = book_title;
@@ -52,4 +64,25 @@ public class Book {
     protected String getBook_title () {
         return book_title;
     }
+
+    protected Book (Parcel in) {
+        book_title = in.readString();
+        author = in.readString();
+        publishing_year = in.readString();
+        page = in.readString();
+    }
+
+    @Override
+    public int describeContents () {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel (Parcel parcel, int i) {
+        parcel.writeString(book_title);
+        parcel.writeString(author);
+        parcel.writeString(publishing_year);
+        parcel.writeString(page);
+    }
+
 }
