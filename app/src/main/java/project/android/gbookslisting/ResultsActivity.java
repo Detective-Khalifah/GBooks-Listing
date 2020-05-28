@@ -16,10 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ResultsActivity extends AppCompatActivity {
 
     static Adapt adapter;
-    static TextView emptyResult;
     ListView bookEntries;
-    String LOG_TAG = ResultsActivity.class.getName();
     List<Book> books = new ArrayList<Book>();
+    TextView emptyResult;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {

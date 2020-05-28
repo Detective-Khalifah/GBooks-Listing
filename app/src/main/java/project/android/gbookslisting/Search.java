@@ -1,8 +1,5 @@
 package project.android.gbookslisting;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -14,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +27,6 @@ public class Search {
      * @param requestURL an initial, unready search query
      */
     protected static List<Book> lookUpVolumes (String requestURL) {
-//        Log.i(Search.class.getName(), "lookUpVolumes in action.");
 
         // RESTful API prefix
         StringBuilder generateQuery = new StringBuilder(GET);
@@ -55,7 +50,6 @@ public class Search {
 
         // Generate a list of books from fetched GeoJSON
         List<Book> searchResult = extractJSONData(JSONResponse);
-//        Log.i(Search.class.getName(), "SearchResult List is made of: " + searchResult);
         return searchResult;
     }
 
@@ -200,8 +194,7 @@ public class Search {
                 }
 
                 /* Extract year*/
-                String year = currentVolInfo.getString("publishedDate")/* only year: .substring(0, 4)*/;
-                Log.i(Search.class.getName(), "year:: " + year);
+                String year = currentVolInfo.getString("publishedDate");
 
                 /* Extract volume/book ID - a unique identifier for the current book, which can be used to uniquely open book info online */
 //                String web_page = currentBookObj.getString("selfLink");

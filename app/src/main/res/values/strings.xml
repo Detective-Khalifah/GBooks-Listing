@@ -6,7 +6,7 @@
     <string name="matches0">No match(es) found.</string>
     <string name="matches1">Match(es) found.</string>
     <string name="hits_page">Search Results</string>
-    <string-array name="maxres">
+    <string-array name="max_results">
         <item>1</item>
         <item>2</item>
         <item>3</item>

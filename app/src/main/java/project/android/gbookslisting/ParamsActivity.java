@@ -44,17 +44,14 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                Log.i(LOG_TAG, "Seach button clicked:: ");
                 if (text.getText().toString().length() > 0) {
                     //TODO: Run a network connectivity test here and set color of button to red or green, depending on status; also set it to orange when searching.
                     // TODO: Consider taking out keyboard after search is clicked.
-                    // TODO: Find out how to make search button accept new search(es) in stead of calling onFinished() recursively.
+                    // TODO: Find out how to make search button accept new search(es) in stead of calling onFinished() recursively. ----- Fixed when app was using a SecondActivity
                     loaderManager.restartLoader(LOADER_ID, null, ParamsActivity.this);
-                    Log.i(LOG_TAG, "LoaderManager initialised called::");
                 } else if (text.getText().length() < 1) {
                     text.setHint("Please enter book title/details");
                     text.setHintTextColor(Color.RED);
-                    Log.e(LOG_TAG, "Title and/or details might not have been entered. Contingency plan executed.");
                 }
             }
         });
@@ -63,7 +60,6 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public Loader<List<Book>> onCreateLoader (int i, Bundle bundle) {
-        Log.i(LOG_TAG, "onCreateLoader() called");
         query = text.getText().toString();
         return new BookLoader(this, query);
     }
@@ -86,8 +82,8 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset (Loader loader) {
-        adapter = new Adapt(this, new ArrayList<Book>());
         adapter.clear();
+        adapter = new Adapt(this, new ArrayList<Book>());
     }
 
 }
