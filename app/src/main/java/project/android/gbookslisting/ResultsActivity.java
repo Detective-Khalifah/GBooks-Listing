@@ -3,19 +3,17 @@ package project.android.gbookslisting;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ResultsActivity extends AppCompatActivity implements Serializable {
+public class ResultsActivity extends AppCompatActivity {
 
     static Adapt adapter;
     static TextView emptyResult;
@@ -28,24 +26,10 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hits_page);
 
-//        NOT
         Bundle bundle = getIntent().getExtras();
         books = bundle.getParcelableArrayList("data");
-//        Intent i = new Intent();
-//        List<Book> books = new ArrayList<Book>();
-//        books = (ArrayList<Book>) i.getSerializableExtra("data");
-
-        // WORKED
-//        List<Book> books = new ArrayList<Book>();
-//        books = ParamsActivity.books;
-//        Log.i(LOG_TAG, "books " + books + " received.");
-
-//        Intent i = getIntent();
-//        ArrayList<Book> books = (ArrayList<Book>) i.getSerializableExtra("data");
-//        Log.i(LOG_TAG, "books::" + books);
 
         emptyResult = findViewById(R.id.matches_nill);
-//        Log.i(LOG_TAG, "emptyResult TextView:: " + emptyResult);
         emptyResult.setText(R.string.matches0);
 
         if (!books.isEmpty()) {
@@ -53,21 +37,17 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
 
             // Create a new adapter that takes a rich (or otherwise empty) list of books as input
             adapter = new Adapt(this, new ArrayList<Book>());
-            Log.i(LOG_TAG, "adapter is 1B::: " + adapter);
 
             // Get the list of books from {@link Search}
             bookEntries = findViewById(R.id.catalog);
-            Log.i(LOG_TAG, "bookEntries ListView 1A::: " + bookEntries);
 
             bookEntries.setAdapter(adapter);
-            Log.i(LOG_TAG, "Adapter set on ListView:: " + bookEntries);
 
             bookEntries.setEmptyView(emptyResult);
 
             bookEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick (AdapterView<?> adapterView, View view, int position, long l) {
-                    Log.i(LOG_TAG, "bookEntries onItemClickListener");
                     // Find the current book that was clicked on
                     Book currentBook = adapter.getItem(position);
 
@@ -82,11 +62,9 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
                 }
             });
 
-//            adapter.clear();
-//        Log.i(LOG_TAG, "adapter cleared.");
+            adapter.clear();
 
             adapter.addAll(books);
-            Log.i(LOG_TAG, "adapter.addAll executed");
         } else {
             emptyResult.setVisibility(View.VISIBLE);
             emptyResult.setText(R.string.matches0);
@@ -94,5 +72,3 @@ public class ResultsActivity extends AppCompatActivity implements Serializable {
 
     }
 }
-
-//        adapter = new Adapt(this, R.layout.hits_page, books);

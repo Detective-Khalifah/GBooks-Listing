@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,6 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 
 import static project.android.gbookslisting.ResultsActivity.adapter;
-
-//import android.support.v4.content.AsyncTaskLoader;
-//import android.support.v7.app.AppCompatActivity;
 
 public class ParamsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
 
@@ -72,18 +70,10 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoadFinished (Loader<List<Book>> loader, List<Book> data) {
-        Log.i(LOG_TAG, "onLoadFinished() called");
-
         // If there is a valid list of {@link Book}s, then add them to the adapter's dataset. This will trigger the ListView to update.
         if (data != null && !data.isEmpty()) {
-            Log.i(LOG_TAG, "Data not empty in onPostExecute's check");
+            Toast.makeText(getApplicationContext(), "Books found. Wait a moment for the list.", Toast.LENGTH_SHORT).show();
 
-            // WORKED by using class var public static List<Book> books /* = new ArrayList<Book>()*/;
-//            books = new ArrayList<Book>();
-//            books = data;
-//            Log.i(LOG_TAG, String.valueOf(data.size()));
-
-            //not
             Intent i = new Intent(getApplicationContext(), ResultsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>) data);
@@ -96,7 +86,6 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset (Loader loader) {
-        Log.i(LOG_TAG, "onLoaderReset() called");
         adapter = new Adapt(this, new ArrayList<Book>());
         adapter.clear();
     }
