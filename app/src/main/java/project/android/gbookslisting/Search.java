@@ -39,9 +39,6 @@ public class Search {
         // Check if character at specific position is whitespace and replace it with '+'/"+"
         generateQuery.append(requestURL.replaceAll("[\\s|\\u00A0]+", "+")) /* limit number of items/results to return here .append("&limit=10") */;
 
-        // Append API key to query
-//        generateQuery.append("&").append(API_KEY);
-
         Log.i(Search.class.getName(), "Generated Query: " + generateQuery);
 
         // Create URL obj
@@ -67,7 +64,6 @@ public class Search {
      * @return
      */
     private static URL createURL (String stringURL) {
-        Log.i(Search.class.getName(), "createURL");
         URL url = null;
         try {
             url = new URL(stringURL);
@@ -103,11 +99,9 @@ public class Search {
 
             // If the request was successful (response code 200), then read the input stream and parse the response.
             if (urlConn.getResponseCode() == 200) {
-                Log.i(Search.class.getName(), "from makeHTTPRequest: Response code 200");
+//                Log.i(Search.class.getName(), "from makeHTTPRequest: Response code 200");
                 inputStream = urlConn.getInputStream();
-//                Log.i(Search.class.getName(), "inputStream:: " + inputStream);
                 JSONResponse = readFromStream(inputStream);
-//                Log.i(Search.class.getName(), "JSONResponse:: " + JSONResponse);
             } else {
                 // Toast.makeText(this, "Please enable network connection", Toast.LENGTH_LONG).show();
             }
@@ -176,19 +170,15 @@ public class Search {
             // For each book in the bookArray, create an {@link book object
             for (int i = 0; i < bookArray.length(); i++) {
                 JSONObject currentBookObj = bookArray.getJSONObject(i);
-//                Log.i(Search.class.getName(), "currentBookObj:: " + currentBookObj);
 
                 JSONObject currentVolInfo = currentBookObj.getJSONObject("volumeInfo");
-//                Log.i(Search.class.getName(), "currentVolInfo:: " + currentVolInfo);
                 // TODO: Get thumbnail from above JSONObj
 
                 /* Extract title*/
                 String title = currentVolInfo.getString("title");
-                Log.i(Search.class.getName(), "title:: " + title);
 
                 /* Extract author(s)*/
                 JSONArray authorsJSON = currentVolInfo.getJSONArray("authors");
-//                String[] authors = {String.valueOf(currentVolInfo.getJSONArray("authors"))};
 
                 StringBuilder maybeMore = new StringBuilder();
                 String writ;
@@ -209,10 +199,8 @@ public class Search {
                     writ = "Unidentified.";
                 }
 
-                Log.i(Search.class.getName(), "authorArr:: " + writ);
-
                 /* Extract year*/
-                String year = currentVolInfo.getString("publishedDate").substring(0, 4);
+                String year = currentVolInfo.getString("publishedDate")/* only year: .substring(0, 4)*/;
                 Log.i(Search.class.getName(), "year:: " + year);
 
                 /* Extract volume/book ID - a unique identifier for the current book, which can be used to uniquely open book info online */
@@ -221,7 +209,6 @@ public class Search {
                 Log.i(Search.class.getName(), "web_page:: " + web_page);
 
 
-//                Log.i(Search.class.getName(), "book:: " + book);
                 books.add(new Book(title, writ, year, web_page));
             }
 
@@ -236,38 +223,3 @@ public class Search {
         return books;
     }
 }
-
-// Check if character at specific position is whitespace and replace it with '+'/"+"
-//        for (int i = 0; i < requestURL.length(); i++){
-//            if (Character.isWhitespace(requestURL.charAt(i))){
-//                requestURL.charAt(i) = '+';
-//            }
-//        }
-//        generateQuery.append(requestURL);
-
-//                Date yyyy = new Date(year);
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-//                year = formatter.format(yyyy);
-
-//                writ = writ.replaceAll("\\W", "");
-//                writ = writ.replaceAll("[^...]","");
-//                writ = writ.replace("^","").replace("$","");
-
-//                String[] authors = {String.valueOf(authorsJSON)};
-//                StringBuilder maybeMore = new StringBuilder();
-//                String quote = "\"";
-//                String writ;
-//                if (authorsJSON != null && authors.length > 1) {
-//                    for (int k = 0; k < authors.length; k++) {
-//                        if (authors.length == (k-1))
-//                            maybeMore.append(authors[k]);
-//                        else
-//                            maybeMore.append(authors[k] + " ");
-//                    }
-//                    writ = String.valueOf(maybeMore);
-//                } else {
-//                    writ = authors[0];
-//                }
-
-//                String quote = "\"";
-//            writ = writ.replaceAll(quote, "").replace((String.valueOf(writ.charAt(0))), "").replace(String.valueOf(writ.charAt(writ.length() - 1)), "");

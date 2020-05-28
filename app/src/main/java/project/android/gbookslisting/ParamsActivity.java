@@ -28,7 +28,6 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
     EditText text;
     String query;
     private LoaderManager loaderManager = getLoaderManager();
-    public static List<Book> books /* = new ArrayList<Book>()*/;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -79,17 +78,15 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         if (data != null && !data.isEmpty()) {
             Log.i(LOG_TAG, "Data not empty in onPostExecute's check");
 
-            // WORKED
+            // WORKED by using class var public static List<Book> books /* = new ArrayList<Book>()*/;
 //            books = new ArrayList<Book>();
 //            books = data;
 //            Log.i(LOG_TAG, String.valueOf(data.size()));
 
             //not
-            books = new ArrayList<Book>();
-            books = data;
             Intent i = new Intent(getApplicationContext(), ResultsActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>) books);
+            bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>) data);
             i.putExtras(bundle);
             startActivity(i);
 

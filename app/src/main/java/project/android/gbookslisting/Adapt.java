@@ -39,7 +39,6 @@ public class Adapt extends ArrayAdapter<Book> {
      */
     @Override
     public View getView (int position, View listView, ViewGroup parent) {
-        Log.i(Adapt.class.getSimpleName(), "getView of Adapt starts");
 
         if (listView == null) {
             listView = LayoutInflater.from(getContext()).inflate(R.layout.hits_page, parent, false);
@@ -48,28 +47,24 @@ public class Adapt extends ArrayAdapter<Book> {
         // Find the book at the given position in the list of books
         Book currentBook = getItem(position);
 
-        // Find the TextVie ith view ID magnitude
+        // Find right views and scribe appropriate data to each.
         TextView titleView = listView.findViewById(R.id.title);
-        // Display the title of the current book in that TextView
         titleView.setText(currentBook.getBook_title());
 
         TextView writ = listView.findViewById(R.id.author);
         writ.setText(currentBook.getAuthor());
 
-        // Display the date of the current book in that TextView
-        String dateStr = currentBook.getPublishing_year();
-        // Find the TextView with view ID date
         TextView dateView = listView.findViewById(R.id.year);
-        // Display the publishing year (date) of the current book in that TextView
-        dateView.setText(dateStr);
+        dateView.setText(currentBook.getPublishing_year());
 
         // Return the list item view that is now showing the appropriate data
         return listView;
     }
 
 }
+// TODO: Should there be need to make date appear in a peculiar style, use these to format it. Definitely going to need more. Shouldn't be a case if I fix up Headli9es correctly.
 
-//        Date dateStr = new Date (String.valueOf(currentBook.getPublishing_year()));
+// A       Date dateStr = new Date (String.valueOf(currentBook.getPublishing_year()));
 //        dateView.setText(formattedDate);
 // Format the date string (i.e. "Mar 3, 1984")
 //    String formattedDate = formatDate(dateStr);
@@ -80,3 +75,8 @@ public class Adapt extends ArrayAdapter<Book> {
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 //        return dateFormat.format(dateObject);
 //    }
+
+// B from Search.java
+//                Date yyyy = new Date(year);
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+//                year = formatter.format(yyyy);
