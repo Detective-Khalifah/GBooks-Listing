@@ -1,45 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/library"
     android:orientation="vertical"
+    android:background="@drawable/library"
     tools:context="project.android.gbookslisting.ParamsActivity">
 
     <LinearLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/deets_field"
-            android:background="@android:color/white"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/deets_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/search"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_weight="0"
+                android:text="@string/search_button" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/search"
-            android:inputType="textMultiLine" />
-
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_weight="0"
-            android:text="@string/search_button" />
-
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/search_param" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/search_param">
-    </TextView>
+    <ListView
+        android:id="@+id/catalog"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/search_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="8"
+        android:background="@android:color/holo_orange_light"
+        android:divider="?attr/dividerHorizontal"
+        android:dividerHeight="4dp"
+        android:orientation="vertical" />
+
 </LinearLayout>

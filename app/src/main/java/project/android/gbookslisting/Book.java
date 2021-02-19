@@ -1,9 +1,6 @@
 package project.android.gbookslisting;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class Book implements Parcelable {
+public class Book {
 
     private String book_title;
     private String author;
@@ -18,25 +15,6 @@ public class Book implements Parcelable {
         this.page = thePage;
     }
 
-    public Book(Parcel in) {
-        this.book_title = in.readString();
-        this.author = in.readString();
-        this.publishing_year = in.readString();
-        this.page = in.readString();
-    }
-
-    public static final Creator<Book> CREATOR = new Creator<Book>() {
-        @Override
-        public Book createFromParcel (Parcel in) {
-            return new Book(in);
-        }
-
-        @Override
-        public Book[] newArray (int size) {
-            return new Book[size];
-        }
-    };
-
     protected String getAuthor () {
         return author;
     }
@@ -49,19 +27,6 @@ public class Book implements Parcelable {
 
     protected String getBook_title () {
         return book_title;
-    }
-
-    @Override
-    public int describeContents () {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel (Parcel parcel, int flags) {
-        parcel.writeString(book_title);
-        parcel.writeString(author);
-        parcel.writeString(publishing_year);
-        parcel.writeString(page);
     }
 
 }

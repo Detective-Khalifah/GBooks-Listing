@@ -4,14 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- Layout for a list of books -->
-    <ListView
-        android:id="@+id/catalog"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
-        android:divider="?attr/dividerHorizontal"
-        android:dividerHeight="4dp"
-        android:orientation="vertical" />
 
     <TextView
         android:id="@+id/matches_nill"
