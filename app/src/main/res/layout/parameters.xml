@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/deets_field"
+                android:id="@+id/edit_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,7 +41,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/check"
+            android:id="@+id/tv_feedack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -51,15 +51,13 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/catalog"
+        android:id="@+id/catalog_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@+id/search_bar"
-        android:layout_alignParentBottom="true"
         android:layout_weight="8"
+        android:dividerHeight="4dp"
         android:background="@android:color/holo_orange_light"
         android:divider="?attr/dividerHorizontal"
-        android:dividerHeight="4dp"
         android:orientation="vertical" />
 
 </LinearLayout>

@@ -6,7 +6,7 @@
     <!-- Layout for a list of books -->
 
     <TextView
-        android:id="@+id/matches_nill"
+        android:id="@+id/matches_null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" /> <!--android:text="@string/matches0"   android:visibility="gone"-->

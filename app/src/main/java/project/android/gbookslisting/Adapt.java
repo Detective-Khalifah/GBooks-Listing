@@ -1,26 +1,22 @@
 package project.android.gbookslisting;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An {@link Adapt} knows how to create a list item layout for each book
  * in the data source {a list of {@link Book} objects}.
  * <p>
- * These list item layouts will be provided to an adapter view like listViwe
+ * These list item layouts will be provided to an adapter view like listView
  * to be displayed to the user
  */
 public class Adapt extends ArrayAdapter<Book> {
-
-    private ArrayList<Book> b;
 
     /**
      * Constructs a new {@link Adapt} adapter.
@@ -30,7 +26,6 @@ public class Adapt extends ArrayAdapter<Book> {
      */
     public Adapt (Context context, List<Book> books) {
         super(context, 0, books);
-        b = (ArrayList<Book>)books;
     }
 
     /**

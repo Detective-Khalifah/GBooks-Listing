@@ -24,11 +24,10 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
 
     private static final int LOADER_ID = 0;
     static Adapt adapter;
-    private static String LOG_TAG = ParamsActivity.class.getName();
+    private static final String LOG_TAG = ParamsActivity.class.getName();
     String query;
-    private static TextView emptyResult;
+    private TextView emptyResult;
     private EditText text;
-    private ListView bookEntries;
     private LoaderManager loaderManager = getLoaderManager();
 
     @Override
@@ -37,19 +36,19 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parameters);
 
-        // TODO: Fix theming; resize textviews for diff. volume info, move TextViews, restructure layout!
+        // TODO: Fix theme; resize textviews for diff. volume info, move TextViews, restructure layout!
         // TODO: Add parameter boxes as imagined and take results ListView to a diff. page/layout;
         //  consider managing it on same screen - like by hiding parameters after clicking search and showing again if EditText is in scope
 
         Button query = (Button) findViewById(R.id.search_button);
-        text = (EditText) findViewById(R.id.deets_field);
-        emptyResult = (TextView) findViewById(R.id.matches_nill);
+        text = (EditText) findViewById(R.id.edit_details);
+        emptyResult = (TextView) findViewById(R.id.matches_null);
 
         // Create a new adapter that takes a rich (or otherwise empty) list of books as input
         adapter = new Adapt(this, new ArrayList<Book>());
 
         // Get the list of books from {@link Search}
-        bookEntries = (ListView) findViewById(R.id.catalog);
+        ListView bookEntries = (ListView) findViewById(R.id.catalog_list_view);
         bookEntries.setAdapter(adapter);
         bookEntries.setEmptyView(emptyResult);
 
@@ -94,7 +93,7 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         emptyResult.setText(R.string.matches0);
     }
 
-    private void hideEmptyTextView () {
+    private void hideEmptyView () {
         emptyResult.setVisibility(View.GONE);
         emptyResult.setText(R.string.matches0);
     }
@@ -111,7 +110,7 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         if (data != null && !data.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Books found. Wait a moment for the list.", Toast.LENGTH_SHORT).show();
 
-            hideEmptyTextView();
+            hideEmptyView();
 
             adapter.clear();
             adapter.addAll(data);

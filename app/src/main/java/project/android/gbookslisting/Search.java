@@ -49,13 +49,12 @@ public class Search {
         }
 
         // Generate a list of books from fetched GeoJSON
-        List<Book> searchResult = extractJSONData(JSONResponse);
-        return searchResult;
+        return extractJSONData(JSONResponse);
     }
 
     /**
-     * @param stringURL
-     * @return
+     * @param stringURL in String format
+     * @return the parsed URL object
      */
     private static URL createURL (String stringURL) {
         URL url = null;
@@ -68,9 +67,9 @@ public class Search {
     }
 
     /**
-     * @param url
-     * @return
-     * @throws IOException
+     * @param {@link url} object that has been parsed by {@link createURL}
+     * @return result of opening the URL object
+     * @throws IOException when there's a network issue
      */
     private static String makeHTTPRequest (URL url) throws IOException {
         String JSONResponse = "";
@@ -111,9 +110,9 @@ public class Search {
     }
 
     /**
-     * @param inStream
-     * @return
-     * @throws IOException
+     * @param inStream received from opening the URL
+     * @return formatted stream
+     * @throws IOException to indicate reading error
      */
     private static String readFromStream (InputStream inStream) throws IOException {
         StringBuilder myList = new StringBuilder();
