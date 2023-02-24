@@ -1,10 +1,10 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">GBooks Listing</string>
     <string name="search">Enter book title</string>
     <string name="search_button">Search</string>
     <string name="search_param">Include book details below in your search</string>
     <string name="matches0">No match(es) found.</string>
-    <string name="matches1">Match(es) found.</string>
+    <string name="matches1"><xliff:g example="1" id="number_of_hits">%d</xliff:g>Match(es) found.</string>
     <string name="hits_page">Search Results</string>
     <string-array name="max_results">
         <item>1</item>

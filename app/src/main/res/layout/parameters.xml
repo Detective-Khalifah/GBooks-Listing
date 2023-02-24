@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/library"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context="project.android.gbookslisting.ParamsActivity">
 
     <LinearLayout
@@ -24,17 +25,20 @@
                 android:id="@+id/edit_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_weight="1"
                 android:background="@android:color/white"
+                android:cursorVisible="true"
                 android:hint="@string/search"
-                android:inputType="textMultiLine" />
+                android:inputType="textAutoCorrect|textWebEditText"
+                android:padding="4dp"
+                android:paddingTop="8dp"
+                android:textStyle="normal" />
 
             <Button
                 android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_weight="0"
                 android:text="@string/search_button" />
 
@@ -55,9 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:dividerHeight="4dp"
-        android:background="@android:color/holo_orange_light"
         android:divider="?attr/dividerHorizontal"
+        android:dividerHeight="4dp"
         android:orientation="vertical" />
 
 </LinearLayout>

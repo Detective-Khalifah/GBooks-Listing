@@ -28,7 +28,7 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
     String query;
     private TextView emptyResult;
     private EditText text;
-    private LoaderManager loaderManager = getLoaderManager();
+    private final LoaderManager loaderManager = getLoaderManager();
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class ParamsActivity extends AppCompatActivity implements LoaderManager.L
         if (data != null && !data.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Books found. Wait a moment for the list.", Toast.LENGTH_SHORT).show();
 
-            hideEmptyView();
+//            hideEmptyView();
 
             adapter.clear();
             adapter.addAll(data);

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFE0B2">
     <!-- Layout for a list of books -->
 
     <TextView
         android:id="@+id/matches_null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" /> <!--android:text="@string/matches0"   android:visibility="gone"-->
+        android:layout_centerInParent="true"
+        android:text="@string/matches0"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +23,8 @@
 
         <ImageView
             android:layout_width="96dp"
-            android:layout_height="96dp" />
+            android:layout_height="96dp"
+            android:padding="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,22 +36,31 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:duplicateParentState="false"
+                android:ellipsize="end"
                 android:maxLines="2"
-                tool:text="A Study in Scarlet">
-            </TextView>
+                android:textStyle="bold"
+                android:visibility="visible"
+                tool:text="A Study in Scarlet" />
 
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="horizontal"
+                android:textColorHighlight="?android:attr/textColorHighlight"
+                android:textStyle="italic"
                 android:visibility="visible"
+                app:fontFamily="sans-serif-medium"
                 tool:text="Sir Arthur Conan Doyle" />
 
             <TextView
                 android:id="@+id/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="normal"
                 android:visibility="visible"
                 tool:text="18__" />
 
